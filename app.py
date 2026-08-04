@@ -855,6 +855,49 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# --- Premium Dark Mode Custom CSS ---
+st.markdown("""
+<style>
+    /* Glassmorphism sidebar */
+    [data-testid="stSidebar"] {
+        background-color: rgba(26, 28, 35, 0.8) !important;
+        backdrop-filter: blur(12px) !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    /* Soft glows for inputs */
+    .stTextInput>div>div>input, .stTextArea>div>div>textarea {
+        background-color: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: #fafafa !important;
+        border-radius: 8px !important;
+        transition: all 0.3s ease !important;
+    }
+    .stTextInput>div>div>input:focus, .stTextArea>div>div>textarea:focus {
+        border-color: #8a2be2 !important;
+        box-shadow: 0 0 10px rgba(138, 43, 226, 0.3) !important;
+    }
+    /* Premium Buttons */
+    .stButton>button {
+        background: linear-gradient(135deg, #8a2be2 0%, #5d1a9e 100%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: white !important;
+        border-radius: 8px !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 15px rgba(138, 43, 226, 0.2) !important;
+        font-weight: bold !important;
+    }
+    .stButton>button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5) !important;
+        border-color: rgba(255, 255, 255, 0.3) !important;
+    }
+    /* Fix markdown container padding */
+    .block-container {
+        padding-top: 2rem !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # --- Initialize Session State ---
 if "structurer_text" not in st.session_state:
     st.session_state.structurer_text = ""
@@ -1406,46 +1449,46 @@ elif app_mode == "Meta Pixel Checker":
         st.markdown("### 👁️ Google SERP Preview")
         tab1, tab2 = st.tabs(["💻 Desktop View", "📱 Mobile View"])
         
-        # Desktop HTML/CSS (Google Desktop: Title ~600px, Description ~600px 2-lines)
+        # Desktop HTML/CSS (Google Desktop Dark Mode)
         desktop_html = f'''
         <div style="overflow-x: auto; width: 100%; padding-bottom: 10px;">
-            <div style="font-family: Arial, sans-serif; width: 652px; min-width: 652px; padding: 16px; background: white; border-radius: 8px; border: 1px solid #dfe1e5; margin-bottom: 20px;">
+            <div style="font-family: Arial, sans-serif; width: 652px; min-width: 652px; padding: 16px; background: #202124; border-radius: 8px; border: 1px solid #3c4043; margin-bottom: 20px;">
                 <div style="display: flex; align-items: center; margin-bottom: 8px;">
-                    <div style="width: 28px; height: 28px; background-color: #f1f3f4; border-radius: 50%; margin-right: 12px; display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 28px; height: 28px; background-color: #3c4043; border-radius: 50%; margin-right: 12px; display: flex; align-items: center; justify-content: center;">
                         <span style="font-size: 14px;">🌐</span>
                     </div>
                     <div>
-                        <div style="font-size: 14px; color: #202124; line-height: 1.3;">{site_name}</div>
-                        <div style="font-size: 12px; color: #4d5156; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 500px;">{seo_url}</div>
+                        <div style="font-size: 14px; color: #dadce0; line-height: 1.3;">{site_name}</div>
+                        <div style="font-size: 12px; color: #bdc1c6; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 500px;">{seo_url}</div>
                     </div>
                 </div>
-                <div style="font-size: 20px; color: #1a0dab; line-height: 1.3; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 600px; min-width: 600px; font-weight: normal; cursor: pointer;">
+                <div style="font-size: 20px; color: #8ab4f8; line-height: 1.3; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 600px; min-width: 600px; font-weight: normal; cursor: pointer;">
                     {seo_title if seo_title else "Your SEO Title Goes Here"}
                 </div>
-                <div style="font-size: 14px; color: #4d5156; line-height: 1.58; width: 600px; min-width: 600px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                <div style="font-size: 14px; color: #bdc1c6; line-height: 1.58; width: 600px; min-width: 600px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                     {seo_desc if seo_desc else "Your meta description will appear here. It should provide a concise and compelling summary of your page's content, encouraging users to click through to read more."}
                 </div>
             </div>
         </div>
         '''
         
-        # Mobile HTML/CSS (Google Mobile: Title ~2 lines, Description ~3 lines or ~120 chars)
+        # Mobile HTML/CSS (Google Mobile Dark Mode)
         mobile_html = f'''
         <div style="overflow-x: auto; width: 100%; padding-bottom: 10px;">
-            <div style="font-family: Arial, sans-serif; width: 375px; min-width: 375px; padding: 16px; background: white; border-radius: 8px; border: 1px solid #dfe1e5; box-shadow: 0 1px 3px rgba(0,0,0,0.12);">
+            <div style="font-family: Arial, sans-serif; width: 375px; min-width: 375px; padding: 16px; background: #202124; border-radius: 8px; border: 1px solid #3c4043; box-shadow: 0 1px 3px rgba(0,0,0,0.3);">
                 <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                    <div style="width: 28px; height: 28px; background-color: #f1f3f4; border-radius: 50%; margin-right: 10px; display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 28px; height: 28px; background-color: #3c4043; border-radius: 50%; margin-right: 10px; display: flex; align-items: center; justify-content: center;">
                         <span style="font-size: 14px;">🌐</span>
                     </div>
                     <div>
-                        <div style="font-size: 14px; color: #202124; line-height: 1.2;">{site_name}</div>
-                        <div style="font-size: 12px; color: #3c4043; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 280px; min-width: 280px;">{seo_url}</div>
+                        <div style="font-size: 14px; color: #dadce0; line-height: 1.2;">{site_name}</div>
+                        <div style="font-size: 12px; color: #bdc1c6; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 280px; min-width: 280px;">{seo_url}</div>
                     </div>
                 </div>
-                <div style="font-size: 20px; color: #1a0dab; line-height: 1.3; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: normal;">
+                <div style="font-size: 20px; color: #8ab4f8; line-height: 1.3; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: normal;">
                     {seo_title if seo_title else "Your SEO Title Goes Here"}
                 </div>
-                <div style="font-size: 14px; color: #4d5156; line-height: 1.58; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                <div style="font-size: 14px; color: #bdc1c6; line-height: 1.58; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                     {seo_desc if seo_desc else "Your meta description will appear here. It should provide a concise and compelling summary of your page's content, encouraging users to click through to read more."}
                 </div>
             </div>
